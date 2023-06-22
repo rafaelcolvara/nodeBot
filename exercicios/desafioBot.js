@@ -15,12 +15,12 @@ bot.start(ctx => {
 })
 
 bot.on('text', async (ctx, next) => {
-    await ctx.reply('Fala viado')
+    await ctx.reply('Olá')
     next()
 })
 
 bot.on('text', async (ctx, next) => {
-    await ctx.reply('Nao entendi')
+    await ctx.reply('Tudo bem?')
     next()
 })
 
