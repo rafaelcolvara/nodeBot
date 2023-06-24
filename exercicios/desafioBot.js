@@ -5,9 +5,11 @@ const autor = env.userMestre
 
 bot.start(ctx => {
     const from = ctx.update.message.from
-    var uname = env.userMestre
+    var uname = autor
     console.log(`from: ${from.first_name}`)
     console.log(`env.userMestre ${env.userMestre}`)
+    console.log(`author ${env.userMestre}`)
+    
     if (from.first_name===uname)
         ctx.reply(`Ola mestre ${from.first_name}, estou ao seu dispor`)
     else
@@ -15,12 +17,12 @@ bot.start(ctx => {
 })
 
 bot.on('text', async (ctx, next) => {
-    await ctx.reply('Fala viado')
+    await ctx.reply('Ola')
     next()
 })
 
 bot.on('text', async (ctx, next) => {
-    await ctx.reply('Nao entendi')
+    await ctx.reply('Tudo bem?')
     next()
 })
 
