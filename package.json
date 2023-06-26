@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ssh2": "^1.14.0",
     "telegraf": "^3.40.0"
   }
 }
