@@ -61,12 +61,12 @@ bot.start(ctx => {
 })
 
 
-bot.on('text', (ctx, next) => {
+bot.on('text', async (ctx, next) => {
     const mensagem= ctx.update.message.text
     console.log(mensagem)
     if (mensagem=='build') {
 
-        ctx.reply(`Agora cole o build do raposa:`)
+        await ctx.reply(`Agora cole o build do raposa:`)
         next()
     }else  if  (mensagem.includes('docker-registry')) {
         ctx.reply('enviando imagem, aguarde...')
