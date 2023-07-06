@@ -1,6 +1,7 @@
-# nodeBot
+# Bot Telegram
 
-Simple test for Bot on Telegram made on NodeJS.
+Bot do telegram para implementação de automação de atividades
 
-Telegram token was removed for security reasons. Just rename file .env.sample to .env and put your Telegram token and be happy :)
+Token do telegram e credenciais do banco de dados foram retirados do projeto. Para utilização desta aplicação, renomeie o arquivo .env.simple para .env e adicione o seu token do Telegram e credenciais do postgres.
 
+Enjoy :)

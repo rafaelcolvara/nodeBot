@@ -2,14 +2,49 @@ const env = require('../.env')
 const Telegraf = require('telegraf') 
 const bot = new Telegraf(env.token)
 const Client = require('ssh2').Client;
+const { Pool } = require('pg');
+
+pool = new Pool({
+  user: env.userPG,
+  host: env.hostPG,
+  database: env.databasePG,
+  password: env.passwordPG,
+  port: env.portPG, 
+});
+
 
 const config = {
-    host: 'playground.valebroker.com.br',
-    port: 22,
-    username: 'rafael.colvara',
-    password: 'Colvar@16091234567',
+    host: env.hostSSH,
+    port: env.portSSH,
+    username: env.usernameSSH,
+    password: env.passwordSSH,
   };
 
+
+async function consultarUsuariosHabilitados() {
+    
+    try {
+      // Conecta ao banco de dados
+      const client = await env.pool.connect();
+  
+      // Executa a consulta
+      const result = await client.query('SELECT id_user FROM tb_user_bot_telegram');
+  
+      // Processa os resultados      
+      const users = result.rows.map(row => row.id_user)
+    
+      // Libera o cliente do pool
+      client.release();
+      return users;
+
+    } catch (error) {      
+      console.error('Erro durante a consulta:', error);
+    } finally {
+      // Encerra a conexão com o pool      
+      pool.end();
+    
+    }
+  } 
 // Função para conectar via SSH
 function connectSSH(build, ctx) {
     const client = new Client();
@@ -56,8 +91,16 @@ function connectSSH(build, ctx) {
   
   
 bot.start(ctx => {
-    const name = ctx.update.message.from.first_name
+    const name = ctx.update.message.from.first_name    
+    console.log(ctx.update.message.from)
     ctx.reply(`Seja bem vindo, ${name}!`)
+    consultarUsuariosHabilitados()
+    .then( result => {
+      console.log(result)
+    })
+    .catch(error => {
+      console.log(`Erro: ${error}`);
+    })
 })
 
 
